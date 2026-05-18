@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/RobertFloor/nginx-gitops.git
     targetRevision: main
-    path: manifests/webapp
+    path: manifests/webapp-test
   destination:
     server: https://kubernetes.default.svc
     namespace: nginx-test

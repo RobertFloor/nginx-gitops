@@ -9,15 +9,17 @@ data:
     HTML = """<!DOCTYPE html>
     <html>
     <head>
-      <title>GitOps Python App</title>
+      <title>GitOps Demo - Test</title>
       <style>
         body { font-family: sans-serif; max-width: 600px; margin: 80px auto; text-align: center; }
         h1 { color: #3776ab; }
+        .env { display: inline-block; background: #f0ad4e; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: bold; }
         p { color: #555; }
       </style>
     </head>
     <body>
       <h1>Hello from Python!</h1>
+      <p><span class="env">TEST</span></p>
       <p>A Python HTTP server deployed via ArgoCD GitOps.</p>
       <p>Served through an nginx reverse proxy.</p>
     </body>
