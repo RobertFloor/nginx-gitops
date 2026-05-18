@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx
-  namespace: argo-test
+  name: argo-staging
+  namespace: argo-staging
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: argo-test
+  project: argo-staging
   source:
     repoURL: https://github.com/RobertFloor/nginx-gitops.git
     targetRevision: main
-    path: manifests/nginx
+    path: environments/argo-staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: nginx-test
+    namespace: argo-staging
   syncPolicy:
     automated:
       prune: true

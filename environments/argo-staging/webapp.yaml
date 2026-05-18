@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: webapp-staging
+  namespace: argo-staging
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: argo-staging
+  source:
+    repoURL: https://github.com/RobertFloor/nginx-gitops.git
+    targetRevision: main
+    path: manifests/webapp
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

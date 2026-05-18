@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argo-staging
+  namespace: argo-staging
+spec:
+  description: Project for argo-staging environment
+  sourceRepos:
+    - https://github.com/RobertFloor/nginx-gitops.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: argo-staging
+    - server: https://kubernetes.default.svc
+      namespace: nginx-staging

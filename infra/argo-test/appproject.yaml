@@ -4,11 +4,13 @@ metadata:
   name: argo-test
   namespace: argo-test
 spec:
-  description: Project for nginx GitOps demo
+  description: Project for argo-test environment
   sourceRepos:
     - https://github.com/RobertFloor/nginx-gitops.git
   destinations:
     - server: https://kubernetes.default.svc
-      namespace: nginx-test
-    - server: https://kubernetes.default.svc
       namespace: argo-test
+    - server: https://kubernetes.default.svc
+      namespace: argo-staging
+    - server: https://kubernetes.default.svc
+      namespace: nginx-test
