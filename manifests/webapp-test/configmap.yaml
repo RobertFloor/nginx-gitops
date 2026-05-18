@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: webapp-script
+  namespace: nginx-test
 data:
   app.py: |
     from http.server import HTTPServer, BaseHTTPRequestHandler

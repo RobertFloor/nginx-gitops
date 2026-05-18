@@ -2,6 +2,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: nginx
+  namespace: nginx-staging
 spec:
   to:
     kind: Service
