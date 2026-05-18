@@ -1,0 +1,24 @@
+# argocd-application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-demo
+  namespace: argo-test
+  # Finalizer ensures resources are cleaned up when the app is deleted
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: argo-test
+  source:
+    repoURL: https://github.com/RobertFloor/nginx-gitops.git
+    targetRevision: main
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx-demo
+  syncPolicy:
+    automated:
+      prune: true      # Delete resources removed from Git
+      selfHeal: true   # Fix drift automatically
+    syncOptions:
+      - CreateNamespace=true  # Create namespace if it does not exist

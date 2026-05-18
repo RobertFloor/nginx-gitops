@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argo-test
+  namespace: argo-test
+spec:
+  description: Project for nginx GitOps demo
+  sourceRepos:
+    - https://github.com/RobertFloor/nginx-gitops.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: nginx-demo
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
