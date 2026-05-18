@@ -1,17 +1,16 @@
-# manifests/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx
-  namespace: nginx-demo
+  name: webapp
+  namespace: nginx-test
   labels:
-    app: nginx
+    app: webapp
 spec:
   type: ClusterIP
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 8080
       protocol: TCP
       name: http
   selector:
-    app: nginx
+    app: webapp

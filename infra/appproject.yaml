@@ -9,7 +9,4 @@ spec:
     - https://github.com/RobertFloor/nginx-gitops.git
   destinations:
     - server: https://kubernetes.default.svc
-      namespace: nginx-demo
-  clusterResourceWhitelist:
-    - group: ""
-      kind: Namespace
+      namespace: nginx-test

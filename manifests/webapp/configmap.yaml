@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapp-html
+  namespace: nginx-test
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>GitOps Demo</title>
+      <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 80px auto; text-align: center; }
+        h1 { color: #e95420; }
+        p { color: #555; }
+      </style>
+    </head>
+    <body>
+      <h1>Hello from the Webapp!</h1>
+      <p>Deployed via ArgoCD GitOps.</p>
+      <p>Served through an nginx reverse proxy.</p>
+    </body>
+    </html>

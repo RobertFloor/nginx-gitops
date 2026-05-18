@@ -2,7 +2,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: nginx
-  namespace: nginx-demo
+  namespace: nginx-test
 spec:
   to:
     kind: Service
