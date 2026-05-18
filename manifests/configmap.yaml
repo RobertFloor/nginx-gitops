@@ -1,0 +1,16 @@
+# manifests/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+  namespace: nginx-demo
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head><title>ArgoCD Nginx Demo</title></head>
+    <body>
+      <h1>Deployed with ArgoCD GitOps</h1>
+      <p>This page is managed by ArgoCD.</p>
+    </body>
+    </html>
