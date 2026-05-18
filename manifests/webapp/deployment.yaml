@@ -15,16 +15,22 @@ spec:
       labels:
         app: webapp
     spec:
+      securityContext:
+        runAsNonRoot: true
       volumes:
-        - name: html-volume
+        - name: app-script
           configMap:
-            name: webapp-html
+            name: webapp-script
       containers:
         - name: webapp
-          image: nginxinc/nginx-unprivileged:1.25.3
+          image: python:3.11-slim
+          command: ["python", "/app/app.py"]
+          env:
+            - name: HOME
+              value: /tmp
           volumeMounts:
-            - name: html-volume
-              mountPath: /usr/share/nginx/html
+            - name: app-script
+              mountPath: /app
           ports:
             - containerPort: 8080
               name: http
