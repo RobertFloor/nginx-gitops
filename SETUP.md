@@ -162,21 +162,36 @@ kubectl get secret argocd-cluster -n argo-staging -o jsonpath='{.data.admin\.pas
 
 ## Teardown
 
+Run these steps in order. Each step ensures the next one won't leave stale resources or deadlock.
+
 ```bash
-# Remove finalizers from all Applications first — otherwise deleting the namespace
-# will deadlock (the finalizer needs the ArgoCD controller which is also being deleted)
+# 1. Remove finalizers from all Application CRs — prevents namespace from getting
+#    stuck Terminating while waiting for the ArgoCD controller that is being deleted
 for ns in argo-root argo-test argo-staging; do
   for app in $(kubectl get application -n $ns -o name 2>/dev/null); do
     kubectl patch $app -n $ns --type=json -p='[{"op":"remove","path":"/metadata/finalizers"}]'
   done
 done
 
-# Delete workload namespaces
-kubectl delete namespace nginx-test nginx-staging
+# 2. Delete all Application CRs — stops ArgoCD from syncing and recreating resources
+#    in workload namespaces before we delete them
+for ns in argo-root argo-test argo-staging; do
+  kubectl delete application --all -n $ns --ignore-not-found
+done
 
-# Delete ArgoCD instances and their namespaces
-kubectl delete -f infra/argo-root/argocd-instance.yaml
-kubectl delete namespace argo-test argo-staging argo-root
+# 3. Delete workload namespaces — safe now that no ArgoCD app will recreate them
+kubectl delete namespace nginx-test nginx-staging --ignore-not-found
+
+# 4. Delete environment ArgoCD instances — lets the operator clean up any
+#    cluster-scoped RBAC it created for these instances
+kubectl delete argocd argocd -n argo-test --ignore-not-found
+kubectl delete argocd argocd -n argo-staging --ignore-not-found
+
+# 5. Delete root ArgoCD instance
+kubectl delete -f infra/argo-root/argocd-instance.yaml --ignore-not-found
+
+# 6. Delete ArgoCD namespaces
+kubectl delete namespace argo-test argo-staging argo-root --ignore-not-found
 ```
 
 ---
