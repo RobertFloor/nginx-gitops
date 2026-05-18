@@ -2,18 +2,18 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: uber-app
-  namespace: argo-test
+  namespace: argo-root
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: argo-test
+  project: argo-root
   source:
     repoURL: https://github.com/RobertFloor/nginx-gitops.git
     targetRevision: main
     path: uber
   destination:
     server: https://kubernetes.default.svc
-    namespace: argo-test
+    namespace: argo-root
   syncPolicy:
     automated:
       prune: true

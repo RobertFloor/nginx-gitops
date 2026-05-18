@@ -11,6 +11,4 @@ spec:
     - server: https://kubernetes.default.svc
       namespace: argo-test
     - server: https://kubernetes.default.svc
-      namespace: argo-staging
-    - server: https://kubernetes.default.svc
       namespace: nginx-test

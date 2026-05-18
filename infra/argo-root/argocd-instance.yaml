@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1beta1
+kind: ArgoCD
+metadata:
+  name: argocd
+  namespace: argo-root
+spec:
+  server:
+    route:
+      enabled: true
+  sso:
+    provider: dex
+    dex:
+      openShiftOAuth: true
+  rbac:
+    defaultPolicy: role:admin
+    policy: |
+      g, system:cluster-admins, role:admin
+      g, kubeadmin, role:admin
+    scopes: '[groups]'
