@@ -3,6 +3,8 @@ kind: AppProject
 metadata:
   name: argo-test
   namespace: argo-test
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   description: Project for argo-test environment
   sourceRepos:
