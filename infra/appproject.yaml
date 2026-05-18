@@ -10,3 +10,5 @@ spec:
   destinations:
     - server: https://kubernetes.default.svc
       namespace: nginx-test
+    - server: https://kubernetes.default.svc
+      namespace: argo-test
